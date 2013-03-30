@@ -23,16 +23,20 @@
     return $value;
   } 
   $start_memory_usage = memory_get_usage();
-  // Получаем название ключа для кэша
+  // Получаем название ключа для кэша  
   $file = md5($_SERVER['REQUEST_URI']);
   // достаём с кэша конфиг файл 
   $system_cache_pach = MODX_CORE_PATH.'cache/system_settings/config.cache.php';
   $valueFile = geFile($system_cache_pach);  
   // формируем путь для нашего кэша
-  $q = str_replace('.','_',$_REQUEST[$valueFile['request_param_alias']]);
-  $arrayUrl = array_filter(explode('/',$q),function($el){ return !empty($el);});
-  $pathUri = implode('/',$arrayUrl);
-  if(strlen($pathUri) > 0) $pathUri .= '/';   
+  if(isset($_REQUEST[$valueFile['request_param_alias']])) {
+    $q = str_replace('.','_',$_REQUEST[$valueFile['request_param_alias']]);
+    $arrayUrl = array_filter(explode('/',$q),function($el){ return !empty($el);});
+    $pathUri = implode('/',$arrayUrl);
+    if(strlen($pathUri) > 0) $pathUri .= '/';
+  } else {
+    $pathUri = 'index/';
+  }    
   // берём с настроек модекса префикс кэша и время жизни кэша
   $cache_prefix = $valueFile['cache_prefix'];
   //$cache_expires = intval($valueFile['cache_expires']);
@@ -48,7 +52,7 @@
         if (time() < ($value['time_start'] + $value['expires']) || $value['expires'] == 0) {
             // подсчитываем время и память
             $time = microtime(true) - $tstart ;
-            // парсим наш тег [^t^] и заменяем на время
+            // парсим наш тег [^t^] и заменяем на время и память
             echo str_replace('[^t^]', 'APCCache: '.round($time,6).' s. :: Memory: '.convert(memory_get_usage() - $start_memory_usage), $value['output']); // Выводим содержимое файла 
             exit;
         } else {
@@ -67,7 +71,7 @@
         if (time() < ($value['time_start'] + $value['expires']) || $value['expires'] == 0) {
             // подсчитываем время и память
             $time = microtime(true) - $tstart ;
-            // парсим наш тег [^t^] и заменяем на время
+            // парсим наш тег [^t^] и заменяем на время и память
             echo str_replace('[^t^]', 'FileCache: '.round($time,6).' s. :: Memory: '.convert(memory_get_usage() - $start_memory_usage), $value['output']); // Выводим содержимое файла
             exit;
         } else {

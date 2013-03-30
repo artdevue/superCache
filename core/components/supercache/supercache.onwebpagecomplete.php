@@ -7,11 +7,13 @@ $cache_handler = $modx->getOption('cache_handler');
 // формируем ключ кэша
 $file = md5($_SERVER['REQUEST_URI']);
 // очишаем на url
-$q = str_replace('.','_',$_REQUEST[$modx->getOption('request_param_alias')]);
-
-// формируем путь для нашего кэша
-$arrayUrl = array_filter(explode('/',$q),function($el){ return !empty($el);});
-$pathUri = implode('/',$arrayUrl);
+if(isset($_REQUEST[$modx->getOption('request_param_alias')])) {
+    $q = str_replace('.','_',$_REQUEST[$modx->getOption('request_param_alias')]);
+    $arrayUrl = array_filter(explode('/',$q),function($el){ return !empty($el);});
+    $pathUri = implode('/',$arrayUrl);
+} else {
+	$pathUri = 'index';
+} 
 $cache_path = 'static/'.$pathUri;
 // проверяем какой кэш и существует ли файл в кэше
 switch ($cache_handler) {
