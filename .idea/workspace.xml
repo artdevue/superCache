@@ -45,7 +45,7 @@
       <file leaf-file-name="supercache.onwebpagecomplete.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/components/supercache/supercache.onwebpagecomplete.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="24" selection-start="728" selection-end="728" vertical-scroll-proportion="-13.125">
+            <state line="23" column="24" selection-start="802" selection-end="802" vertical-scroll-proportion="-13.125">
               <folding />
             </state>
           </provider>
@@ -326,7 +326,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/components/supercache/supercache.onwebpagecomplete.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="24" selection-start="728" selection-end="728" vertical-scroll-proportion="-13.125">
+        <state line="23" column="24" selection-start="802" selection-end="802" vertical-scroll-proportion="-13.125">
           <folding />
         </state>
       </provider>
