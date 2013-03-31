@@ -9,7 +9,7 @@ Ext.onReady(function () {
         data.supercache = {}
     }
     if (!data.supercache.supercache) {
-        data.supercache.supercache = csCacheCheckboxDefaulr
+        data.supercache.supercache = csCacheCheckboxDefaulr !== undefined && csCacheCheckboxDefaulr !== null ? csCacheCheckboxDefaulr : false;
     }
 
     modxPageSettingsRightBoxLeft.add({
@@ -20,6 +20,10 @@ Ext.onReady(function () {
         name: 'supercache',
         id: 'modx-resource-supercache',
         inputValue: 1,
-        checked: data.supercache.supercache !== undefined && data.supercache.supercache !== null ? parseInt(data.supercache.supercache) : true
+        checked: data.supercache.supercache !== undefined && data.supercache.supercache !== null ? parseInt(data.supercache.supercache) : true,
+        handler: function() {
+            var btn = Ext.getCmp('modx-abtn-save');
+            if (btn) { btn.enable(); }
+        }
     })
 });
